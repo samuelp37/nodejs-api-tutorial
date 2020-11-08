@@ -18,14 +18,16 @@ exports.create = (req, res) => {
   });
 
   // Save Customer in the database
-  Customer.create(customer, (err, data) => {
+  Customer.create(customer, (err, resp) => {
     if (err){
-      res.status(err.code).send(
-        {"message":err.message}
+      res.status(err.statusCode).send(
+        {"message": err.message}
       );
     }
     else{
-      res.send(data);
+      res.send(
+        {"data": resp.data}
+      );
     }
   });
 

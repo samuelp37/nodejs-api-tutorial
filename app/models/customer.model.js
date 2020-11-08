@@ -1,36 +1,48 @@
 const knex = require("../../knex/knex.js");
 
-// constructor
-const Customer = function(customer) {
-  this.email = customer.email;
-  this.name = customer.name;
-  this.active = customer.active;
-};
+class Customer{
 
-const toJson = function(customer){
-  return {
-    "email": customer.email,
-    "name": customer.name,
-    "active": customer.active
-  };
+  constructor(customer){
+    this.email = customer.email;
+    this.name = customer.name;
+    this.active = customer.active;
+  }
+
+  toJson(){
+    return {
+      "email": this.email,
+      "name": this.name,
+      "active": this.active
+    };
+  }
+
+  static create(newCustomer, result){ 
+    var response;
+    knex('customers')
+    .insert(newCustomer)
+    .returning('id')
+    .then(
+      function (id){
+        response = {
+          "statusCode": 200,
+          "data": {...{"id": id[0]}, ...newCustomer.toJson()}
+        };
+        result(null, response);
+      }
+    )
+    .catch(
+      function(error){
+        console.log(error.message);
+        response = {
+          "statusCode": 400,
+          "message": error.message
+        };
+        result(response,null);
+      }
+    );
+    return;
+  }
+
 }
-
-Customer.create = (newCustomer, result) => { 
-  knex('customers')
-  .insert(newCustomer)
-  .returning('id')
-  .then(
-    function (id){
-      result(null, {"data": {...{"id": id[0]}, ...toJson(newCustomer)} });
-    }
-  )
-  .catch(
-    function(error){
-      console.log(error.message);
-      result({"code": 400, "message": error.message},null);
-    }
-  );
-  return;
-};
 
 module.exports = Customer;
