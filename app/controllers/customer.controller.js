@@ -32,3 +32,18 @@ exports.create = (req, res) => {
   });
 
 };
+
+exports.findById = (req, res) => {
+  Customer.findById(req.params.customerId, (err, resp) => {
+    if (err){
+      res.status(err.statusCode).send(
+        {"message": err.message}
+      );
+    }
+    else{
+      res.send(
+        {"data": resp.data}
+      );
+    }
+  });
+};

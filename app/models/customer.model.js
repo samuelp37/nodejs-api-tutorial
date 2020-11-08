@@ -43,6 +43,42 @@ class Customer{
     return;
   }
 
+  static findById(customerId, result){
+    var response;
+    knex('customers')
+    .where('id', customerId)
+    .select('*')
+    .then(
+      function (customersFound){
+        if(customersFound.length>0){
+          response = {
+            "statusCode": 200,
+            "data": {"customer": customersFound[0]}
+          };
+          result(null, response);
+        }
+        else{
+          response = {
+            "statusCode": 404,
+            "message": `No customer found with ID ${customerId}`
+          };
+          result(response, null);
+        }
+      }
+    )
+    .catch(
+      function(error){
+        console.log(error.message);
+        response = {
+          "statusCode": 500,
+          "message": error.message
+        };
+        result(response,null);
+      }
+    );
+    return;
+  }
+
 }
 
 module.exports = Customer;
