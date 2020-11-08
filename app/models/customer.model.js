@@ -27,7 +27,7 @@ Customer.create = (newCustomer, result) => {
   .catch(
     function(error){
       console.log(error.message);
-      result({"code": 500, "message": error.message},null);
+      result({"code": 400, "message": error.message},null);
     }
   );
   return;

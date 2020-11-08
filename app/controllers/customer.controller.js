@@ -20,7 +20,7 @@ exports.create = (req, res) => {
   // Save Customer in the database
   Customer.create(customer, (err, data) => {
     if (err){
-      res.status(400).send(
+      res.status(err.code).send(
         {"message":err.message}
       );
     }
