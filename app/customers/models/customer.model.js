@@ -1,4 +1,4 @@
-const knex = require("../../knex/knex.js");
+const knex = require("../../../knex/knex.js");
 
 class Customer{
 
