@@ -1,6 +1,9 @@
 const knex = require("../../../knex/knex.js");
 
-class Customer{
+export class Customer{
+  email: String;
+  name: String;
+  active: Boolean;
 
   constructor(customer){
     this.email = customer.email;
@@ -80,5 +83,3 @@ class Customer{
   }
 
 }
-
-module.exports = Customer;

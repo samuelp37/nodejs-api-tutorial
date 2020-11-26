@@ -4,7 +4,7 @@
   "description": "Node.js Restful CRUD API with Node.js, Express and MySQL",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha — timeout 10000"
   },
   "keywords": [
     "nodejs",
@@ -19,5 +19,10 @@
     "express": "^4.17.1",
     "knex": "^0.21.5",
     "pg": "^8.4.2"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "chai-http": "4.2.1",
+    "mocha": "5.2.0"
   }
 }

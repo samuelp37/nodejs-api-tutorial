@@ -1,4 +1,4 @@
-const Customer = require("../models/customer.model.js");
+import {Customer} from '../models/customer.model';
 
 // Create and Save a new Customer
 exports.create = (req, res) => {
